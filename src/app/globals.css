@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apple Theme Variables */
+:root {
+  --background: #F5F5F7; /* Apple Light Gray */
+  --foreground: #1D1D1F; /* Deep Black */
+  --accent: #0071E3;     /* Apple Blue */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased; /* Makes fonts crisp */
+}
