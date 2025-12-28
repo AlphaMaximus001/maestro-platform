@@ -4,11 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+  "dev": "next dev",
+  "build": "npx prisma generate && next build",  
+  "start": "next start",
+  "lint": "next lint"
+},
   "dependencies": {
     "@prisma/client": "^5.17.0",
     "next": "15.1.0",
