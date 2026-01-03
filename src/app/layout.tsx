@@ -1,31 +1,28 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import Navbar from "@/components/Navbar"; // Keep Navbar if you want it global (or remove if handled per page)
-import Footer from "@/components/Footer"; // <--- IMPORT FOOTER
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Maestro Platform",
-  description: "Learn and Teach Online",
+  title: "Maestro",
+  description: "Master any skill with 1-on-1 mentorship.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning={true} className={inter.className}>
-        {/* Navbar is usually inside specific pages if you want different navs, 
-            but for simple apps, keeping it here is fine. */}
-        
-        {children}
-
-        <Footer /> {/* <--- ADD FOOTER HERE AT THE BOTTOM */}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        {/* ADD THIS PROP: suppressHydrationWarning */}
+        <body className={inter.className} suppressHydrationWarning>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

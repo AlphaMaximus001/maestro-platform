@@ -14,3 +14,30 @@ body {
   color: var(--foreground);
   -webkit-font-smoothing: antialiased; /* Makes fonts crisp */
 }
+/* Prevent text selection on clickable items for an "App-like" feel */
+button, 
+a, 
+img, 
+[role="button"], 
+input[type="submit"], 
+input[type="button"] {
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  outline: none;             /* Removes the blue outline on click */
+}
+
+/* Optional: Removes the blue highlight tap box on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
