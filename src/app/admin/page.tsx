@@ -7,6 +7,8 @@ import { makeUserTeacher } from "@/app/actions/makeUserTeacher";
 
 export default async function AdminDashboard() {
   const { sessionClaims } = await auth();
+  
+  // Safely access the role from metadata
   const role = (sessionClaims?.metadata as any)?.role;
   
   if (role !== 'admin') {
@@ -45,7 +47,13 @@ export default async function AdminDashboard() {
                     <h3 className="text-lg font-bold text-[#1D1D1F]">Grant Student Access</h3>
                     <p className="text-xs text-gray-500">Manually enroll a student.</p>
                 </div>
-                <form action={grantAccess} className="space-y-3">
+                <form 
+                    action={async (formData) => {
+                        "use server"
+                        await grantAccess(formData)
+                    }} 
+                    className="space-y-3"
+                >
                     <input name="email" type="email" required placeholder="Student Email" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold outline-none focus:ring-2 focus:ring-green-500"/>
                     <select name="teacherId" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold outline-none focus:ring-2 focus:ring-green-500">
                         {teachers.map(t => <option key={t.id} value={t.id}>{t.name} ({t.subject})</option>)}
@@ -59,15 +67,20 @@ export default async function AdminDashboard() {
                 </form>
             </div>
 
-            {/* 2. ONBOARD NEW TEACHER (SIMPLIFIED) */}
+            {/* 2. ONBOARD NEW TEACHER */}
             <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100">
                 <div className="mb-6">
                     <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-xl mb-3">👨‍🏫</div>
                     <h3 className="text-lg font-bold text-[#1D1D1F]">Onboard Teacher</h3>
                     <p className="text-xs text-gray-500">Enable teacher dashboard for user.</p>
                 </div>
-                <form action={makeUserTeacher} className="space-y-3">
-                    {/* Only asking for Email now */}
+                <form 
+                    action={async (formData) => {
+                        "use server"
+                        await makeUserTeacher(formData)
+                    }} 
+                    className="space-y-3"
+                >
                     <input 
                         name="email" 
                         type="email" 
